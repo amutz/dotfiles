@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run -it --name gcloud-config google/cloud-sdk:latest gcloud auth login

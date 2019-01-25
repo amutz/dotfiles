@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run -it --volumes-from gcloud-config google/cloud-sdk:latest gcloud $@
