@@ -19,10 +19,10 @@ curl -fsSL "https://github.com/neovim/neovim/releases/latest/download/nvim-linux
   | $SUDO tar -xz -C /opt
 $SUDO ln -sf "/opt/nvim-linux-${NVIM_ARCH}/bin/nvim" /usr/local/bin/nvim
 
-# telescope live_grep needs ripgrep; fd speeds up find_files
+# ripgrep/fd for pickers and grep; unzip for mason-installed LSP servers
 if command -v apt-get >/dev/null; then
   $SUDO apt-get update -qq
-  $SUDO apt-get install -y -qq ripgrep fd-find
+  $SUDO apt-get install -y -qq ripgrep fd-find unzip
 fi
 
 echo "Linking nvim config..."
@@ -35,5 +35,7 @@ ln -sfn "$DOTFILES_DIR/nvim" ~/.config/nvim
 
 echo "Pre-installing plugins from lazy-lock.json..."
 nvim --headless "+Lazy! restore" +qa || echo "Plugin restore failed; they will install on first launch."
+# LSP servers (mason) and treesitter parsers install on first interactive
+# launch — expect a busy minute the first time nvim is opened.
 
 echo "Done. nvim $(nvim --version | head -1) installed."

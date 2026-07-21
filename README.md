@@ -6,6 +6,11 @@ without touching shared project config.
 `install.sh` installs the latest neovim release, ripgrep/fd, symlinks
 `nvim/` to `~/.config/nvim`, and restores plugins from `lazy-lock.json`.
 
+The nvim config is [LazyVim](https://www.lazyvim.org/) with extras for the
+Rails/Hotwire/Tailwind stack (see `nvim/lazyvim.json`), plus personal
+overlays in `nvim/lua/plugins/`: diffview, claudecode.nvim, and
+neotest-minitest. Requires a Nerd Font in the connecting terminal.
+
 ## Usage with the devcontainer CLI
 
 ```bash

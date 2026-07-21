@@ -1,0 +1,1 @@
+-- LazyVim defaults only; diffview's auto-refresh autocmd lives in its plugin spec
