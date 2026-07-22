@@ -19,10 +19,21 @@ curl -fsSL "https://github.com/neovim/neovim/releases/latest/download/nvim-linux
   | $SUDO tar -xz -C /opt
 $SUDO ln -sf "/opt/nvim-linux-${NVIM_ARCH}/bin/nvim" /usr/local/bin/nvim
 
-# ripgrep/fd for pickers and grep; unzip for mason-installed LSP servers
+# ripgrep/fd for pickers and grep; unzip for mason-installed LSP servers;
+# wl-clipboard for host clipboard access via the mounted Wayland socket
 if command -v apt-get >/dev/null; then
   $SUDO apt-get update -qq
-  $SUDO apt-get install -y -qq ripgrep fd-find unzip
+  $SUDO apt-get install -y -qq ripgrep fd-find unzip wl-clipboard
+fi
+
+# dcu mounts the host Wayland socket here; wayland accepts an absolute
+# WAYLAND_DISPLAY path, which keeps XDG_RUNTIME_DIR untouched
+if ! grep -q "host-wayland" ~/.bashrc 2>/dev/null; then
+  cat >> ~/.bashrc <<'EOF'
+
+# Host clipboard passthrough (socket mounted by dcu on the host)
+[ -S /mnt/host-wayland/wayland-0 ] && export WAYLAND_DISPLAY=/mnt/host-wayland/wayland-0
+EOF
 fi
 
 echo "Linking nvim config..."
