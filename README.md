@@ -4,7 +4,11 @@ Personal dev environment setup, used to bring neovim into devcontainers
 without touching shared project config.
 
 `install.sh` installs the latest neovim release, ripgrep/fd, symlinks
-`nvim/` to `~/.config/nvim`, and restores plugins from `lazy-lock.json`.
+`nvim/` to `~/.config/nvim`, restores plugins from `lazy-lock.json`, and
+links the Claude Code skills in `claude/skills/` into `~/.claude/skills`.
+
+`install-claude-skills.sh` does only the skills linking — for environments
+that don't need the editor setup (e.g. a Claude Code cloud setup script).
 
 The nvim config is [LazyVim](https://www.lazyvim.org/) with extras for the
 Rails/Hotwire/Tailwind stack (see `nvim/lazyvim.json`), plus personal

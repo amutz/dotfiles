@@ -44,6 +44,9 @@ if [ -e ~/.config/nvim ] && [ ! -L ~/.config/nvim ]; then
 fi
 ln -sfn "$DOTFILES_DIR/nvim" ~/.config/nvim
 
+echo "Linking Claude Code skills..."
+bash "$DOTFILES_DIR/install-claude-skills.sh"
+
 echo "Pre-installing plugins from lazy-lock.json..."
 nvim --headless "+Lazy! restore" +qa || echo "Plugin restore failed; they will install on first launch."
 # LSP servers (mason) and treesitter parsers install on first interactive
