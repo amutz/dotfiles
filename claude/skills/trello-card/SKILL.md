@@ -29,7 +29,19 @@ Then **stop and wait for the user to confirm or correct the interpretation**. Do
 
 ## Phase 3 — Develop as normal
 
-After confirmation, follow the standard workflow from CLAUDE.md (`/ce:plan` then `/ce:work` for non-trivial work; direct implementation for small fixes).
+After confirmation, first link this Claude Code session on the card, then follow the standard workflow from CLAUDE.md (`/ce:plan` then `/ce:work` for non-trivial work; direct implementation for small fixes).
+
+Link the session on the card:
+
+1. Get the session ID: `echo $CLAUDE_CODE_SESSION_ID`.
+2. Append to the card description (same mechanics as Phase 4 — re-fetch first, append to the existing description, never replace):
+
+   ```
+   ---
+   **Claude session:** `claude --resume <session-id>`
+   ```
+
+   Local CLI sessions have no web URL (verified against the docs, Sep 2026), so the resume command is the link. If the session does have a URL (Claude Code web / cloud session), use a markdown link to that URL instead. If this session's line is already on the card, skip the update.
 
 Traceability rules for this phase:
 
@@ -55,3 +67,5 @@ The Trello MCP tools cannot add comments or attachments, so the description line
 ## Resuming in a fresh session
 
 If the development happened earlier and the current session only needs to link the PR: invoke this skill with the card URL, skip to Phase 4, and take the PR URL from the open PR on the current branch (`gh pr view --json url`).
+
+Any session that does real work on the card (not just the Phase 4 PR link) appends its own **Claude session:** line per Phase 3, so the card accumulates one line per working session.
